@@ -1,0 +1,13 @@
+{
+  "name": "totypescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "js-watch": "nodemon ./javascript index.js",
+    "ts-watch": "tsc --outFile ./javascript/index.js  ./typescript/globalMethods.ts  ./typescript/index.ts --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
