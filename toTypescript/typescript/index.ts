@@ -1,4 +1,5 @@
-interface ObjectWithProperties {
+
+interface IObjectStringKey {
   [key: string]: any
 }
 
@@ -18,13 +19,13 @@ function isPlainObject(obj: any) {
 /**
  * Копирует перечислимые свойства одного или нескольких объектов в целевой объект.
  */
-function extend(deep: boolean, target: object, ...sources: object[]): object;
-function extend(target: object, ...sources: object[]): object;
+function extend(deep: boolean, target: IObjectStringKey, ...sources: IObjectStringKey[]): IObjectStringKey;
+function extend(target: IObjectStringKey, ...sources: IObjectStringKey[]): IObjectStringKey;
 
-function extend(deepOrTarget: any, targetOrFirstSource: object, ...restSources: object[] ): object {
+function extend(deepOrTarget: any, targetOrFirstSource: IObjectStringKey, ...restSources: IObjectStringKey[] ): IObjectStringKey {
   let deep: Boolean;
-  let target: ObjectWithProperties;
-  let sources: object[];
+  let target: IObjectStringKey;
+  let sources: IObjectStringKey[];
   if (typeof deepOrTarget === 'boolean') {
     deep = deepOrTarget;
     target = targetOrFirstSource;
@@ -36,7 +37,7 @@ function extend(deepOrTarget: any, targetOrFirstSource: object, ...restSources: 
   }
 
   for (let i = 0; i < sources.length; i++) {
-    const source: ObjectWithProperties = sources[i];
+    const source: IObjectStringKey = sources[i];
     
     for (const key in source) {
       if (ObjectMethods.hasOwnProperty.call(source, key)) {
@@ -64,5 +65,5 @@ function extend(deepOrTarget: any, targetOrFirstSource: object, ...restSources: 
   return target;
 };
 
- console.log(extend({a: 4}, {a: 2}, [333, 4444] ))
+ console.log(extend(true, {a: 22}, { b: 333}, {}))
 

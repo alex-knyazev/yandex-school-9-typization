@@ -60,4 +60,4 @@ function extend(deepOrTarget, targetOrFirstSource) {
     return target;
 }
 ;
-console.log(extend({ a: 4 }, { a: 2 }, [333, 4444]));
+console.log(extend(true, { a: 22 }, { b: 333 }, {}));
