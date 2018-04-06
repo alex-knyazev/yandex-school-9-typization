@@ -16,14 +16,17 @@ function isPlainObject(obj: any) {
     prototype === Object.prototype;
 }
 
-type FunctionType =
-  & (({}|[], ...Array<{}|[]> ) => {})
-  & ((boolean, {}|[], ...Array<{}|[]>) => {})
+type ObjectWithStringKey  = { [string]: any };
+type ArrayWithAny = Array<any>;
 
-const extend: FunctionType = function(deepOrTarget: any, targetOrFirstSource: any, ...restSources: any ): {} {
+type FunctionType =
+  & ((ObjectWithStringKey|ArrayWithAny, ...Array<ObjectWithStringKey|ArrayWithAny> ) => ObjectWithStringKey)
+  & ((boolean, ObjectWithStringKey|ArrayWithAny, ...Array<ObjectWithStringKey|ArrayWithAny>) => ObjectWithStringKey)
+
+const extend: FunctionType = function(deepOrTarget: any, targetOrFirstSource: any, ...restSources: any ): ObjectWithStringKey {
   let deep: boolean;
-  let target: {};
-  let sources: Array<{}>;
+  let target: ObjectWithStringKey;
+  let sources: Array<ObjectWithStringKey>;
   if (typeof deepOrTarget === 'boolean') {
     deep = deepOrTarget;
     target = targetOrFirstSource;
@@ -43,7 +46,7 @@ const extend: FunctionType = function(deepOrTarget: any, targetOrFirstSource: an
         const isArray:boolean = val && Array.isArray(val);
         const isValPlainObject:boolean = isPlainObject(val);
         if (deep && val && (isValPlainObject || isArray)) {
-          let clone: any;
+          let clone:any;
           const src:any = target[key];
           if (isArray) {
             clone = src && Array.isArray(src) ? src : [];
@@ -62,7 +65,13 @@ const extend: FunctionType = function(deepOrTarget: any, targetOrFirstSource: an
   return target;
 };
 
-const result = extend({a: 4}, {d: 2}, {b: 3});
+const result:ObjectWithStringKey = extend({a: 4}, {d: 2}, {b: 3});
+console.log(result)
 
-const result2 = extend(true, {a: 4}, {f: 222, c:  333}, {d: 2}, {b: 3});
 
+const result2:ObjectWithStringKey = extend(true, {a: 4}, {f: 222, c:  333}, {d: 2}, {b: 3});
+console.log(result2);
+
+
+const result3:ObjectWithStringKey = extend(true, [22, 33], {a: 2});
+console.log(result3);

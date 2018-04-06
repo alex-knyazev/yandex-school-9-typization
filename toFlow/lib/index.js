@@ -55,8 +55,10 @@ const extend = function (deepOrTarget, targetOrFirstSource, ...restSources) {
 };
 
 const result = extend({ a: 4 }, { d: 2 }, { b: 3 });
-
 console.log(result);
 
 const result2 = extend(true, { a: 4 }, { f: 222, c: 333 }, { d: 2 }, { b: 3 });
 console.log(result2);
+
+const result3 = extend(true, [22, 33], { a: 2 });
+console.log(result3);
